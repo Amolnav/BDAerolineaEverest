@@ -7,7 +7,7 @@ BEGIN
     DECLARE ciudad_destino VARCHAR(100);
     DECLARE duracion TIME;
     DECLARE codigo VARCHAR(10);
-    DECLARE idAvion INT;
+    DECLARE AvionId INT;
     DECLARE fechaVuelo DATE;
     DECLARE existe INT;
 
@@ -32,13 +32,13 @@ BEGIN
 
         -- Seleccionar avión para el vuelo
         REPEAT
-            SET idAvion = (SELECT idAvion FROM aviones ORDER BY RAND() LIMIT 1);
-            SET existe = (SELECT COUNT(*) FROM vuelos WHERE idAvion = idAvion AND fecha = fechaVuelo);
+            SET AvionId = (SELECT idAvion FROM aviones ORDER BY RAND() LIMIT 1);
+            SET existe = (SELECT COUNT(*) FROM vuelos WHERE AvionId = idAvion AND fecha = fechaVuelo);
         UNTIL existe = 0 END REPEAT;
 
         -- Insertar vuelo
         INSERT INTO vuelos (fecha, origen, destino, duracion, codigoVuelo, idAvion)
-        VALUES (fechaVuelo, ciudad_origen, ciudad_destino, duracion, codigo, idAvion);
+        VALUES (fechaVuelo, ciudad_origen, ciudad_destino, duracion, codigo, AvionId);
 
         SET i = i + 1;
     END WHILE;
