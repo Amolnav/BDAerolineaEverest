@@ -33,7 +33,7 @@ BEGIN
         -- Seleccionar avión para el vuelo
         REPEAT
             SET AvionId = (SELECT idAvion FROM aviones ORDER BY RAND() LIMIT 1);
-            SET existe = (SELECT COUNT(*) FROM vuelos WHERE AvionId = idAvion AND fecha = fechaVuelo);
+            SET existe = (SELECT COUNT(*) FROM vuelos WHERE idAvion = AvionId AND fecha = fechaVuelo);
         UNTIL existe = 0 END REPEAT;
 
         -- Insertar vuelo
