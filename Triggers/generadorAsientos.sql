@@ -1,4 +1,5 @@
 DELIMITER $$
+
 CREATE TRIGGER generarAsientos
 AFTER INSERT ON vuelos
 FOR EACH ROW
@@ -8,13 +9,13 @@ BEGIN
     DECLARE clase_asiento VARCHAR(50);
     DECLARE precio DECIMAL(10,2);
 
-    --Capacidad del avion
+    /* Capacidad del avion */
     SELECT capacidad INTO capacidad
     FROM aviones
     WHERE idAvion = NEW.idAvion;
 
     WHILE i <= capacidad DO
-        -- Asignar clase y precio
+        /* Asignar clase y precio */
         IF i <= capacidad * 0.2 THEN
             SET clase_asiento = 'Primera';
             SET precio = 300.00;
@@ -26,12 +27,13 @@ BEGIN
             SET precio = 100.00;
         END IF;
 
-        --Insertar Asiento
-         INSERT INTO asiento (numeroAsiento, clase, precio, disponible, idVuelo)
-         VALUES (CONCAT('A', i), clase_asiento, precio, TRUE, NEW.idVuelo);
+        /* Insertar Asiento */
+        INSERT INTO asiento (numeroAsiento, clase, precio, disponible, idVuelo)
+        VALUES (CONCAT('A', i), clase_asiento, precio, TRUE, NEW.idVuelo);
 
-    SET i = i+1;
+        SET i = i + 1;
     END WHILE;
 
 END$$
+
 DELIMITER ;
