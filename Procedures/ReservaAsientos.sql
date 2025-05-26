@@ -24,7 +24,7 @@ BEGIN
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
-    --Comprobar que hay suficientes asientos
+    /* Comprobar que hay suficientes asientos */
     SELECT COUNT(*) INTO v_cantidadDisponible
     FROM asiento
     WHERE idVuelo = p_idVuelo
@@ -36,12 +36,12 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = v_errorMsg;
     END IF;
 
-    --Crear la reserva
+    /* Crear la reserva */
     INSERT INTO reserva (fechaReserva, estado, idPasajero)
     VALUES (CURDATE(), 'Confirmada', p_idPasajero);
     SET v_idReserva = LAST_INSERT_ID();
 
-    --Abrir el cursor
+    /* Abrir el cursor */
     OPEN cur;
 
     read_loop: LOOP
@@ -50,7 +50,7 @@ BEGIN
             LEAVE read_loop;
         END IF;
 
-        --Asignar el asiento a la reserva
+        /* Asignar el asiento a la reserva */
         UPDATE asiento
         SET idReserva = v_idReserva,
             disponible = 0
