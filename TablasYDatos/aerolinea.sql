@@ -87,8 +87,8 @@ CREATE TABLE asiento (
     idReserva INT DEFAULT NULL,
     idVuelo INT NOT NULL,
     FOREIGN KEY (idReserva) REFERENCES reserva(idReserva),
-    FOREIGN KEY (idVuelo) REFERENCES vuelos(idVuelo)
-    PRIMARY KEY (numeroAsiento, idReserva)
+    FOREIGN KEY (idVuelo) REFERENCES vuelos(idVuelo),
+    PRIMARY KEY (numeroAsiento, idVuelo)
 );
 
 -- Tabla: trabajadores
