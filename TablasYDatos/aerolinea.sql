@@ -21,6 +21,7 @@ CREATE TABLE direccion (
     idDireccion INT AUTO_INCREMENT PRIMARY KEY,
     calle VARCHAR(100) NOT NULL,
     numero VARCHAR(10) NOT NULL,
+    codigoPostal INT(10) NOT NULL,
     idCiudad INT NOT NULL,
     FOREIGN KEY (idCiudad) REFERENCES ciudad(idCiudad)
 );
@@ -79,7 +80,6 @@ CREATE TABLE vuelos (
 
 -- Tabla: asiento
 CREATE TABLE asiento (
-    idAsiento INT AUTO_INCREMENT PRIMARY KEY,
     numeroAsiento VARCHAR(10) NOT NULL,
     clase VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
@@ -88,6 +88,7 @@ CREATE TABLE asiento (
     idVuelo INT NOT NULL,
     FOREIGN KEY (idReserva) REFERENCES reserva(idReserva),
     FOREIGN KEY (idVuelo) REFERENCES vuelos(idVuelo)
+    PRIMARY KEY (numeroAsiento, idReserva)
 );
 
 -- Tabla: trabajadores
