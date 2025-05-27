@@ -24,19 +24,18 @@ DROP TABLE IF EXISTS `asiento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `asiento` (
-  `idAsiento` int(11) NOT NULL AUTO_INCREMENT,
   `numeroAsiento` varchar(10) NOT NULL,
   `clase` varchar(50) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `disponible` tinyint(1) NOT NULL DEFAULT 1,
   `idReserva` int(11) DEFAULT NULL,
   `idVuelo` int(11) NOT NULL,
-  PRIMARY KEY (`idAsiento`),
+  PRIMARY KEY (`numeroAsiento`,`idVuelo`),
   KEY `idReserva` (`idReserva`),
   KEY `idVuelo` (`idVuelo`),
   CONSTRAINT `asiento_ibfk_1` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`),
   CONSTRAINT `asiento_ibfk_2` FOREIGN KEY (`idVuelo`) REFERENCES `vuelos` (`idVuelo`)
-) ENGINE=InnoDB AUTO_INCREMENT=1051 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +154,7 @@ CREATE TABLE `direccion` (
   `idDireccion` int(11) NOT NULL AUTO_INCREMENT,
   `calle` varchar(100) NOT NULL,
   `numero` varchar(10) NOT NULL,
+  `codigoPostal` int(10) NOT NULL,
   `idCiudad` int(11) NOT NULL,
   PRIMARY KEY (`idDireccion`),
   KEY `idCiudad` (`idCiudad`),
@@ -169,56 +169,56 @@ CREATE TABLE `direccion` (
 LOCK TABLES `direccion` WRITE;
 /*!40000 ALTER TABLE `direccion` DISABLE KEYS */;
 INSERT INTO `direccion` VALUES
-(1,'Calle Mayor','12',5),
-(2,'Avenida del Sol','8B',14),
-(3,'Paseo del Río','22',1),
-(4,'Calle Luna','7',28),
-(5,'Calle del Olivo','45',10),
-(6,'Avenida Central','103',3),
-(7,'Plaza Nueva','19',30),
-(8,'Calle Jazmín','4A',16),
-(9,'Calle Rosales','78',21),
-(10,'Calle Cedro','13',6),
-(11,'Camino del Norte','56',2),
-(12,'Calle del Mar','9',24),
-(13,'Calle Lavanda','15B',11),
-(14,'Avenida de los Pinos','34',35),
-(15,'Calle del Lago','17',9),
-(16,'Calle del Bosque','82',18),
-(17,'Avenida Andrómeda','5C',13),
-(18,'Calle de las Flores','26',7),
-(19,'Calle Romero','39',36),
-(20,'Paseo de la Estación','67',19),
-(21,'Calle del Prado','88',4),
-(22,'Calle Ciprés','52',27),
-(23,'Calle de la Estrella','21A',32),
-(24,'Paseo del Parque','3',20),
-(25,'Calle del Alba','66B',12),
-(26,'Calle Olmo','10',1),
-(27,'Avenida del Lago','24A',2),
-(28,'Calle Acacia','3B',3),
-(29,'Calle del Álamo','42',4),
-(30,'Calle del Fresno','19C',5),
-(31,'Calle del Nogal','78',6),
-(32,'Calle de la Viña','6',7),
-(33,'Camino Viejo','29B',8),
-(34,'Calle Clavel','13',9),
-(35,'Calle Azahar','55A',10),
-(36,'Calle Pez','101',11),
-(37,'Paseo Marítimo','17',12),
-(38,'Calle del Halcón','88',13),
-(39,'Calle del Sur','9C',14),
-(40,'Calle del Valle','61',15),
-(41,'Calle Laurel','45',16),
-(42,'Calle del Roble','73B',17),
-(43,'Calle del Molino','5',18),
-(44,'Camino del Prado','30',19),
-(45,'Calle del Aire','68A',20),
-(46,'Calle de la Arena','12',21),
-(47,'Calle del Horizonte','20',22),
-(48,'Calle del Albaicín','36C',23),
-(49,'Calle de los Cedros','79',24),
-(50,'Calle Luna Nueva','48',25);
+(1,'Calle Mayor','12',45873,5),
+(2,'Avenida del Sol','8B',82105,14),
+(3,'Paseo del Río','22',19642,1),
+(4,'Calle Luna','7',73091,28),
+(5,'Calle del Olivo','45',31587,10),
+(6,'Avenida Central','103',60234,3),
+(7,'Plaza Nueva','19',94718,30),
+(8,'Calle Jazmín','4A',27365,16),
+(9,'Calle Rosales','78',50129,21),
+(10,'Calle Cedro','13',11982,6),
+(11,'Camino del Norte','56',88456,2),
+(12,'Calle del Mar','9',33701,24),
+(13,'Calle Lavanda','15B',77654,11),
+(14,'Avenida de los Pinos','34',22590,35),
+(15,'Calle del Lago','17',59341,9),
+(16,'Calle del Bosque','82',14076,18),
+(17,'Avenida Andrómeda','5C',80234,13),
+(18,'Calle de las Flores','26',36987,7),
+(19,'Calle Romero','39',61453,36),
+(20,'Paseo de la Estación','67',90876,19),
+(21,'Calle del Prado','88',25109,4),
+(22,'Calle Ciprés','52',74210,27),
+(23,'Calle de la Estrella','21A',38567,32),
+(24,'Paseo del Parque','3',69012,20),
+(25,'Calle del Alba','66B',17435,12),
+(26,'Calle Olmo','10',83210,1),
+(27,'Avenida del Lago','24A',49756,2),
+(28,'Calle Acacia','3B',20345,3),
+(29,'Calle del Álamo','42',75890,4),
+(30,'Calle del Fresno','19C',10987,5),
+(31,'Calle del Nogal','78',56789,6),
+(32,'Calle de la Viña','6',92345,7),
+(33,'Camino Viejo','29B',30456,8),
+(34,'Calle Clavel','13',67890,9),
+(35,'Calle Azahar','55A',12345,10),
+(36,'Calle Pez','101',87654,11),
+(37,'Paseo Marítimo','17',43210,12),
+(38,'Calle del Halcón','88',98765,13),
+(39,'Calle del Sur','9C',21098,14),
+(40,'Calle del Valle','61',76543,15),
+(41,'Calle Laurel','45',32109,16),
+(42,'Calle del Roble','73B',89012,17),
+(43,'Calle del Molino','5',54321,18),
+(44,'Camino del Prado','30',90123,19),
+(45,'Calle del Aire','68A',10987,20),
+(46,'Calle de la Arena','12',65432,21),
+(47,'Calle del Horizonte','20',23456,22),
+(48,'Calle del Albaicín','36C',78901,23),
+(49,'Calle de los Cedros','79',34567,24),
+(50,'Calle Luna Nueva','48',89012,25);
 /*!40000 ALTER TABLE `direccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +238,7 @@ CREATE TABLE `factura` (
   PRIMARY KEY (`idFactura`),
   KEY `idReserva` (`idReserva`),
   CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -378,7 +378,7 @@ CREATE TABLE `reserva` (
   PRIMARY KEY (`idReserva`),
   KEY `idPasajero` (`idPasajero`),
   CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`idPasajero`) REFERENCES `pasajeros` (`idPasajero`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -456,7 +456,7 @@ CREATE TABLE `vuelos` (
   PRIMARY KEY (`idVuelo`),
   KEY `idAvion` (`idAvion`),
   CONSTRAINT `vuelos_ibfk_1` FOREIGN KEY (`idAvion`) REFERENCES `aviones` (`idAvion`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -512,6 +512,37 @@ BEGIN
         SET i = i + 1;
     END WHILE;
 
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_uca1400_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER asignarTrabajadores
+AFTER INSERT ON vuelos
+FOR EACH ROW
+BEGIN
+   
+    INSERT INTO vuelosTrabajadores (idVuelo, idTrabajador)
+    SELECT NEW.idVuelo, t.idTrabajador
+    FROM trabajadores t
+    WHERE t.idTrabajador NOT IN (
+        SELECT vt.idTrabajador
+        FROM vuelosTrabajadores vt
+        JOIN vuelos v ON vt.idVuelo = v.idVuelo
+        WHERE v.fecha = NEW.fecha
+    )
+    ORDER BY RAND()
+    LIMIT 3;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -805,4 +836,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-05-26  9:35:30
+-- Dump completed on 2025-05-27  9:11:33
